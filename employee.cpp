@@ -3,6 +3,12 @@
 
 Employee::Employee(unsigned int employeeId, std::string name, std::string firstName, unsigned int postalCode, float salary, unsigned int yearsOfEmployment)
 {
+  this->employeeId = employeeId;
+  this->name = name;
+  this->firstName = firstName;
+  this->postalCode = postalCode;
+  this->salary = salary;
+  this->yearsOfEmployment = yearsOfEmployment;
 }
 
 Employee::~Employee()
