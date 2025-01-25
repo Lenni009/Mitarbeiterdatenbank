@@ -23,4 +23,4 @@ Es gibt die Anforderung, dass alle Dateien in einem Ordner liegen, ohne Unterord
 
 ## Compile
 
-g++ -Wall -o database main.cpp
+g++ -Wall -o mitarbeiter main.cpp database.cpp employee.cpp
