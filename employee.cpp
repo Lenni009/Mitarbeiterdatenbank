@@ -10,10 +10,12 @@ Employee::~Employee()
 
 void Employee::increaseSalary(unsigned int factor)
 {
+  salary += salary * factor;
 }
 
 void Employee::increaseYearsOfEmployment()
 {
+  yearsOfEmployment++;
 }
 
 unsigned int Employee::getYearsOfEmployment()
