@@ -15,6 +15,12 @@ Für jede:n Mitarbeiter:in werden die folgenden Attribute gespeichert:
 
 Mitarbeitende können hinzugefügt, bearbeitet und entfernt werden.
 
+## Schönheiten in der Aufgabenstellung
+
+Betriebszugehörigkeitsjahre sollen explizizt gespeichert anstatt dynamisch basierend auf einem Anfangsdatum berechnet werden.
+
+Es gibt die Anforderung, dass alle Dateien in einem Ordner liegen, ohne Unterordner.
+
 ## Compile
 
 g++ -Wall -o database main.cpp
