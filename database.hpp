@@ -22,4 +22,5 @@ public:
   void removeEmployee(unsigned int employeeId);
   std::vector<Employee> findEmployee(std::string name, std::string firstName);
   std::vector<Employee> employmentAnniversary(unsigned int yearsOfEmployment);
+  void viewDB();
 };

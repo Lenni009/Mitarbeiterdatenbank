@@ -56,3 +56,13 @@ std::vector<Employee> Database::employmentAnniversary(unsigned int yearsOfEmploy
 {
   return std::vector<Employee>();
 }
+
+void Database::viewDB()
+{
+  // access by reference to avoid copying
+  for (Employee &employee : db)
+  {
+    employee.outputDataToConsole();
+    std::cout << std::endl;
+  }
+}
