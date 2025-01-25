@@ -18,6 +18,7 @@ public:
   // getters
   unsigned int getYearsOfEmployment();
   unsigned int getEmployeeId();
+  void outputDataToConsole();
 
   // mutate data
   void increaseSalary(unsigned int factor); // "increase" as per task description -> can only go up -> int cannot be signed -> using unsigned int
