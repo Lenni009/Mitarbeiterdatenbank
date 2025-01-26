@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
+#include <vector>
 #include "database.hpp"
 #include "employee.hpp"
 
@@ -21,6 +23,10 @@ void Database::readFile(std::string path)
   std::string line;
   while (std::getline(file, line))
   {
+    if (line.empty())
+    {
+      continue;
+    }
     char sep = ',';
     std::stringstream strStream(line);
     std::string value;
@@ -30,21 +36,40 @@ void Database::readFile(std::string path)
       args.push_back(value);
     }
 
-    unsigned int employeeId = stoi(args.at(0));
-    unsigned int postalCode = stoi(args.at(3));
-    unsigned int salary = stoi(args.at(4));
-    unsigned int yearsOfEmployment = stoi(args.at(5));
-    Employee *employee = new Employee(employeeId, args.at(1), args.at(2), postalCode, salary, yearsOfEmployment);
+    unsigned int employeeId = std::stoi(args.at(0));
+    float salary = std::stof(args.at(4));
+    unsigned int yearsOfEmployment = std::stoi(args.at(5));
+    Employee *employee = new Employee(employeeId, args.at(1), args.at(2), args.at(3), salary, yearsOfEmployment);
     db.push_back(*employee);
   }
 }
 
 void Database::saveFile(std::string path)
 {
+  std::string outputText;
+
+  for (Employee &employee : db)
+  {
+    outputText += employee.getEmployeeData();
+    outputText += "\n\n"; // adding empty line between entries
+  }
+
+  // https://www.w3schools.com/cpp/cpp_files.asp
+  // create and open a text file
+  std::ofstream dbFile(path);
+
+  // write to the file
+  dbFile << outputText;
+
+  // close the file
+  dbFile.close();
 }
 
 void Database::removeEmployee(unsigned int employeeId)
 {
+  // find where employee.employeeId == employeeId and remove that specific entry from the vector
+  db.erase(std::find(db.begin(), db.end(), [&employeeId](Employee &employee)
+                     { return employee.getEmployeeId() == employeeId; }));
 }
 
 std::vector<Employee> Database::findEmployee(std::string name, std::string firstName)
