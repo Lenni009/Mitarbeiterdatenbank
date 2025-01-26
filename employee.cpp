@@ -1,14 +1,14 @@
 #include <iostream>
 #include "employee.hpp"
 
-Employee::Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment)
+Employee::Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary)
 {
   this->employeeId = employeeId;
   this->name = name;
   this->firstName = firstName;
   this->postalCode = postalCode;
   this->salary = salary;
-  this->yearsOfEmployment = yearsOfEmployment;
+  this->yearsOfEmployment = 0;
 }
 
 Employee::~Employee()
@@ -48,7 +48,7 @@ std::string Employee::getEmployeeFirstName()
 std::string Employee::getEmployeeData()
 {
   char sep = ',';
-  return std::string(std::to_string(employeeId) + sep + name + sep + firstName + sep + postalCode + sep + std::to_string(salary) + std::to_string(yearsOfEmployment));
+  return std::string(name + sep + firstName + sep + postalCode + sep + std::to_string(salary) + std::to_string(yearsOfEmployment));
 }
 
 void Employee::outputDataToConsole()

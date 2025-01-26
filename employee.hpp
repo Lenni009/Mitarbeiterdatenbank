@@ -13,17 +13,23 @@ private:
   unsigned int yearsOfEmployment;
 
 public:
-  Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment);
+  Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary);
   ~Employee();
+
   // getters
+  // individual attributes
   unsigned int getEmployeeId();
   std::string getEmployeeName();
   std::string getEmployeeFirstName();
   unsigned int getYearsOfEmployment();
+
+  // all data in one comma-separated string
   std::string getEmployeeData();
+
+  // log data formatted as key/value pairs to the console
   void outputDataToConsole();
 
   // mutate data
-  void increaseSalary(float factor);  // no huge precision needed -> using float instead of double
-  void increaseYearsOfEmployment();
+  void increaseSalary(float factor); // no huge precision needed -> using float instead of double
+  void increaseYearsOfEmployment();  // +1 year
 };
