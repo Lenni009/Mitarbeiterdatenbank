@@ -34,8 +34,8 @@ public:
   unsigned int getNewEmployeeId();
 
   // employee finders
-  std::vector<Employee> findEmployee(std::string name, std::string firstName);
-  std::vector<Employee> employmentAnniversary(unsigned int yearsOfEmployment);
+  std::vector<unsigned int> findEmployee(std::string name, std::string firstName);
+  std::vector<unsigned int> employmentAnniversary(unsigned int yearsOfEmployment);
 
   // get output of DB data
   void viewDB();

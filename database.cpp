@@ -118,27 +118,27 @@ unsigned int Database::getNewEmployeeId()
   }
 }
 
-std::vector<Employee> Database::findEmployee(std::string name, std::string firstName)
+std::vector<unsigned int> Database::findEmployee(std::string name, std::string firstName)
 {
-  std::vector<Employee> filterResults;
+  std::vector<unsigned int> filterResults;
   for (Employee &employee : db)
   {
     if (employee.getEmployeeName() == name && employee.getEmployeeFirstName() == firstName)
     {
-      filterResults.push_back(employee);
+      filterResults.push_back(employee.getEmployeeId());
     }
   }
   return filterResults;
 }
 
-std::vector<Employee> Database::employmentAnniversary(unsigned int yearsOfEmployment)
+std::vector<unsigned int> Database::employmentAnniversary(unsigned int yearsOfEmployment)
 {
-  std::vector<Employee> filterResults;
+  std::vector<unsigned int> filterResults;
   for (Employee &employee : db)
   {
     if (employee.getYearsOfEmployment() == yearsOfEmployment)
     {
-      filterResults.push_back(employee);
+      filterResults.push_back(employee.getEmployeeId());
     }
   }
   return filterResults;
