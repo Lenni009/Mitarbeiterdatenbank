@@ -38,7 +38,6 @@ unsigned int Employee::getEmployeeId()
 std::string Employee::getEmployeeData()
 {
   char sep = ',';
-  std::string fullPostalCode;
   return std::string(std::to_string(employeeId) + sep + name + sep + firstName + sep + postalCode + sep + std::to_string(salary) + std::to_string(yearsOfEmployment));
 }
 
