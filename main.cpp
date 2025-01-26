@@ -8,7 +8,7 @@ int main()
   Database db = Database();
 
   // read file
-  db.readFile("./db.csv");
+  db.readFile("db.csv");
 
   // get user action
   int action;
@@ -25,6 +25,18 @@ int main()
   {
   case 1:
     db.viewDB();
+    break;
+
+  case 2:
+    db.saveFile("test.csv");
+    break;
+
+  case 3:
+
+    break;
+
+  case 4:
+
     break;
   }
 }
