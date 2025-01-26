@@ -19,6 +19,7 @@ public:
   ~Database();
   void readFile(std::string path);
   void saveFile(std::string path);
+  void addEmployee(Employee &employee);
   void removeEmployee(unsigned int employeeId);
   std::vector<Employee> findEmployee(std::string name, std::string firstName);
   std::vector<Employee> employmentAnniversary(unsigned int yearsOfEmployment);

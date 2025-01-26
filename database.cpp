@@ -40,7 +40,7 @@ void Database::readFile(std::string path)
     float salary = std::stof(args.at(4));
     unsigned int yearsOfEmployment = std::stoi(args.at(5));
     Employee *employee = new Employee(employeeId, args.at(1), args.at(2), args.at(3), salary, yearsOfEmployment);
-    db.push_back(*employee);
+    addEmployee(*employee);
   }
 }
 
@@ -63,6 +63,11 @@ void Database::saveFile(std::string path)
 
   // close the file
   dbFile.close();
+}
+
+void Database::addEmployee(Employee &employee)
+{
+  db.push_back(employee);
 }
 
 void Database::removeEmployee(unsigned int employeeId)
