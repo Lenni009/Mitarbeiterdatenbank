@@ -17,14 +17,31 @@ private:
 public:
   Database();
   ~Database();
+
+  // file operations
   void readFile(std::string path);
   void saveFile(std::string path);
-  void addEmployee(Employee &employee);
+
+  // employee add/remove
+  unsigned int addEmployee(std::string name, std::string firstName, std::string postalCode, float salary); // I wouldn't return anything from this function, but the task requires this to return the employee id
   void removeEmployee(unsigned int employeeId);
+
+  // employee item getters
   int getEmployeeIndexById(unsigned int employeeId);
   Employee getEmployeeByIndex(unsigned int index);
+
+  // get ID for new employee
   unsigned int getNewEmployeeId();
+
+  // employee finders
   std::vector<Employee> findEmployee(std::string name, std::string firstName);
   std::vector<Employee> employmentAnniversary(unsigned int yearsOfEmployment);
+
+  // get output of DB data
   void viewDB();
+
+  // employee data mutations
+  // I would just use these methods on the employee objects directly, but the task requires this to be on the db object
+  void increaseSalary(unsigned int employeeId, float factor);
+  void increaseYearsOfEmployment(unsigned int employeeId);
 };

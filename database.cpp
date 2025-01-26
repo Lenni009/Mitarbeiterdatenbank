@@ -27,20 +27,17 @@ void Database::readFile(std::string path)
     {
       continue;
     }
-    char sep = ',';
     std::stringstream strStream(line);
     std::string value;
+    char sep = ',';
     std::vector<std::string> args;
     while (std::getline(strStream, value, sep))
     {
       args.push_back(value);
     }
 
-    unsigned int employeeId = std::stoi(args.at(0));
     float salary = std::stof(args.at(4));
-    unsigned int yearsOfEmployment = std::stoi(args.at(5));
-    Employee *employee = new Employee(employeeId, args.at(1), args.at(2), args.at(3), salary, yearsOfEmployment);
-    addEmployee(*employee);
+    addEmployee(args.at(1), args.at(2), args.at(3), salary);
   }
 }
 
@@ -65,9 +62,14 @@ void Database::saveFile(std::string path)
   dbFile.close();
 }
 
-void Database::addEmployee(Employee &employee)
+unsigned int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary)
 {
-  db.push_back(employee);
+  unsigned int employeeId = getNewEmployeeId();
+
+  Employee *employee = new Employee(employeeId, name, firstName, postalCode, salary);
+
+  db.push_back(*employee);
+  return employeeId;
 }
 
 void Database::removeEmployee(unsigned int employeeId)
@@ -149,5 +151,32 @@ void Database::viewDB()
   {
     employee.outputDataToConsole();
     std::cout << std::endl;
+  }
+}
+
+// fancy wrapper around the employee's class own method, but it is required by the task that this method exists on the DB
+void Database::increaseSalary(unsigned int employeeId, float factor)
+{
+  int employeeIndex = getEmployeeIndexById(employeeId);
+  // -1 = invalid index, ID doesn't exist
+  if (employeeIndex != -1)
+  {
+    Employee employee = getEmployeeByIndex(employeeIndex);
+    employee.increaseSalary(factor);
+  }
+}
+
+// another method that the task requires to be on the DB object
+void Database::increaseYearsOfEmployment(unsigned int employeeId)
+{
+  // the code here is pretty much similar to the above method, but I'm lacking the knowledge to make this generic.
+  // since a function in C++ can only have one return type (as far as I know), I cannot declare a method that *might* return an employee, or might return void.
+  // so the alternative is to return an int and then check whether that int has an expected value.
+  int employeeIndex = getEmployeeIndexById(employeeId);
+  // -1 = invalid index, ID doesn't exist
+  if (employeeIndex != -1)
+  {
+    Employee employee = getEmployeeByIndex(employeeIndex);
+    employee.increaseYearsOfEmployment();
   }
 }
