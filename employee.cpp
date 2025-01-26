@@ -35,6 +35,16 @@ unsigned int Employee::getEmployeeId()
   return employeeId;
 }
 
+std::string Employee::getEmployeeName()
+{
+  return name;
+}
+
+std::string Employee::getEmployeeFirstName()
+{
+  return firstName;
+}
+
 std::string Employee::getEmployeeData()
 {
   char sep = ',';

@@ -16,8 +16,10 @@ public:
   Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment);
   ~Employee();
   // getters
-  unsigned int getYearsOfEmployment();
   unsigned int getEmployeeId();
+  std::string getEmployeeName();
+  std::string getEmployeeFirstName();
+  unsigned int getYearsOfEmployment();
   std::string getEmployeeData();
   void outputDataToConsole();
 
