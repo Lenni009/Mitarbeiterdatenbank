@@ -77,6 +77,18 @@ void Database::removeEmployee(unsigned int employeeId)
                         { return employee.getEmployeeId() == employeeId; }));
 }
 
+unsigned int Database::getNewEmployeeId()
+{
+  if (db.size())
+  {
+    return db.back().getEmployeeId() + 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
+
 std::vector<Employee> Database::findEmployee(std::string name, std::string firstName)
 {
   std::vector<Employee> filterResults;
