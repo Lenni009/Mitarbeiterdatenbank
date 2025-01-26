@@ -21,6 +21,8 @@ public:
   void saveFile(std::string path);
   void addEmployee(Employee &employee);
   void removeEmployee(unsigned int employeeId);
+  int getEmployeeIndexById(unsigned int employeeId);
+  Employee getEmployeeByIndex(unsigned int index);
   unsigned int getNewEmployeeId();
   std::vector<Employee> findEmployee(std::string name, std::string firstName);
   std::vector<Employee> employmentAnniversary(unsigned int yearsOfEmployment);

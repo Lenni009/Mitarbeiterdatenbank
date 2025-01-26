@@ -72,9 +72,36 @@ void Database::addEmployee(Employee &employee)
 
 void Database::removeEmployee(unsigned int employeeId)
 {
-  // find where employee.employeeId == employeeId and remove that specific entry from the vector
-  db.erase(std::find_if(db.begin(), db.end(), [&employeeId](Employee &employee)
-                        { return employee.getEmployeeId() == employeeId; }));
+  const int employeeIndex = getEmployeeIndexById(employeeId);
+
+  if (employeeIndex != -1)
+  {
+    // https://stackoverflow.com/questions/875103/how-do-i-erase-an-element-from-stdvector-by-index
+    db.erase(db.begin() + employeeIndex);
+  }
+}
+
+// returning an int so we can check for invalid IDs
+int Database::getEmployeeIndexById(unsigned int employeeId)
+{
+  // find element where Employee.employeeId == employeeId
+  // returns an iterator
+  const auto it = std::find_if(db.begin(), db.end(), [&employeeId](Employee &employee)
+                               { return employee.getEmployeeId() == employeeId; });
+  if (it != db.end())
+  {
+    return it - db.begin();
+  }
+  else
+  {
+    std::cout << "Ungültige Mitarbeiternummer!" << std::endl;
+    return -1;
+  }
+}
+
+Employee Database::getEmployeeByIndex(unsigned int index)
+{
+  return db.at(index);
 }
 
 unsigned int Database::getNewEmployeeId()
