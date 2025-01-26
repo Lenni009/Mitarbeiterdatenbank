@@ -74,12 +74,28 @@ void Database::removeEmployee(unsigned int employeeId)
 
 std::vector<Employee> Database::findEmployee(std::string name, std::string firstName)
 {
-  return std::vector<Employee>();
+  std::vector<Employee> filterResults;
+  for (Employee &employee : db)
+  {
+    if (employee.getEmployeeName() == name && employee.getEmployeeFirstName() == firstName)
+    {
+      filterResults.push_back(employee);
+    }
+  }
+  return filterResults;
 }
 
 std::vector<Employee> Database::employmentAnniversary(unsigned int yearsOfEmployment)
 {
-  return std::vector<Employee>();
+  std::vector<Employee> filterResults;
+  for (Employee &employee : db)
+  {
+    if (employee.getYearsOfEmployment() == yearsOfEmployment)
+    {
+      filterResults.push_back(employee);
+    }
+  }
+  return filterResults;
 }
 
 void Database::viewDB()
