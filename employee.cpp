@@ -17,7 +17,7 @@ Employee::~Employee()
 
 void Employee::increaseSalary(float factor)
 {
-  salary += salary * factor;
+  salary *= factor;
 }
 
 void Employee::increaseYearsOfEmployment()
