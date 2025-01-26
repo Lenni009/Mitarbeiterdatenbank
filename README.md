@@ -17,9 +17,11 @@ Mitarbeitende können hinzugefügt, bearbeitet und entfernt werden.
 
 ## Schönheiten in der Aufgabenstellung
 
-Betriebszugehörigkeitsjahre sollen explizizt gespeichert anstatt dynamisch basierend auf einem Anfangsdatum berechnet werden.
+Betriebszugehörigkeitsjahre sollen explizit gespeichert anstatt dynamisch basierend auf einem Anfangsdatum berechnet werden.
 
 Es gibt die Anforderung, dass alle Dateien in einem Ordner liegen, ohne Unterordner.
+
+Einige Methoden sollen auf der DB-Klasse implementiert werden anstatt auf der Mitarbeiter-Klasse. In der Aufgabenstellung ist auch keine Rede von einer Mitarbeiter-Klasse.
 
 ## Compile
 
