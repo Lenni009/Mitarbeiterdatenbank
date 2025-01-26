@@ -68,7 +68,7 @@ void Database::saveFile(std::string path)
 void Database::removeEmployee(unsigned int employeeId)
 {
   // find where employee.employeeId == employeeId and remove that specific entry from the vector
-  db.erase(std::find(db.begin(), db.end(), [&employeeId](Employee &employee)
+  db.erase(std::find_if(db.begin(), db.end(), [&employeeId](Employee &employee)
                      { return employee.getEmployeeId() == employeeId; }));
 }
 
