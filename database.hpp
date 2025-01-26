@@ -44,4 +44,7 @@ public:
   // I would just use these methods on the employee objects directly, but the task requires this to be on the db object
   void increaseSalary(unsigned int employeeId, float factor);
   void increaseYearsOfEmployment(unsigned int employeeId);
+
+  // input validation
+  bool isEmployeeIdValid(unsigned int employeeId);
 };

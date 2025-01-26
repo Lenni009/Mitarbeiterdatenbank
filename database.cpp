@@ -180,3 +180,8 @@ void Database::increaseYearsOfEmployment(unsigned int employeeId)
     employee.increaseYearsOfEmployment();
   }
 }
+
+bool Database::isEmployeeIdValid(unsigned int employeeId)
+{
+  return getEmployeeIndexById(employeeId) != -1;
+}
