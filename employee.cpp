@@ -16,16 +16,7 @@ Employee::~Employee()
 {
 }
 
-void Employee::increaseSalary(float factor)
-{
-  salary *= factor;
-}
-
-void Employee::increaseYearsOfEmployment()
-{
-  yearsOfEmployment++;
-}
-
+// getters
 unsigned int Employee::getYearsOfEmployment()
 {
   return yearsOfEmployment;
@@ -65,4 +56,15 @@ void Employee::outputDataToConsole()
   std::cout << "PLZ: " << postalCode << std::endl;
   std::cout << "Gehalt: " << salary << std::endl;
   std::cout << "Jahre der Betriebszugehörigkeit: " << yearsOfEmployment << std::endl;
+}
+
+// setters
+void Employee::increaseSalary(float factor)
+{
+  salary *= factor;
+}
+
+void Employee::increaseYearsOfEmployment()
+{
+  yearsOfEmployment++;
 }
