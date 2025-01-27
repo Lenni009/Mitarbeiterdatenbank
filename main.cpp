@@ -98,13 +98,14 @@ void handleEmployeeSearch(unsigned int findAction)
   }
 }
 
-void getUserAction()
+bool getUserAction()
 {
   // get user action
   std::cout << "[1] Datenbank ansehen" << std::endl;
   std::cout << "[2] Mitarbeiter*in hinzufügen" << std::endl;
   std::cout << "[3] Mitarbeiter*in bearbeiten" << std::endl;
   std::cout << "[4] Mitarbeiter*in suchen" << std::endl;
+  std::cout << "[5] Programm beenden" << std::endl;
   std::cout << "Gewählte Option: ";
 
   unsigned int action;
@@ -164,6 +165,7 @@ void getUserAction()
   }
 
   case 4:
+  {
     // find employee
     std::cout << "Mitarbeiter*in finden" << std::endl;
     std::cout << "[1] mit Name" << std::endl;
@@ -176,6 +178,14 @@ void getUserAction()
     handleEmployeeSearch(findAction);
     break;
   }
+
+  case 5:
+    // exit
+    return true;
+  }
+
+  // continue
+  return false;
 }
 
 int main()
@@ -188,10 +198,15 @@ int main()
   // restart dialogue after an action has been completed to prevent program restart requirement for further actions
   while (true)
   {
-    getUserAction();
+    // true = exit; false = continue
+    bool exit = getUserAction();
     db.saveFile(filePath);
     std::cout << std::endl;
-    // TODO: add a way to exit program
-    // return a number from getUserAction(), decide on that number whether to exit or continue loop
+
+    // program exit
+    if (exit)
+    {
+      return 0;
+    }
   }
 }
