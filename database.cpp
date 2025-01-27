@@ -101,7 +101,7 @@ int Database::getEmployeeIndexById(unsigned int employeeId)
   }
 }
 
-Employee Database::getEmployeeByIndex(unsigned int index)
+Employee &Database::getEmployeeByIndex(unsigned int index)
 {
   return db.at(index);
 }
@@ -161,7 +161,7 @@ void Database::increaseSalary(unsigned int employeeId, float factor)
   // -1 = invalid index, ID doesn't exist
   if (employeeIndex != -1)
   {
-    Employee employee = getEmployeeByIndex(employeeIndex);
+    Employee &employee = getEmployeeByIndex(employeeIndex);
     employee.increaseSalary(factor);
   }
 }
@@ -176,7 +176,7 @@ void Database::increaseYearsOfEmployment(unsigned int employeeId)
   // -1 = invalid index, ID doesn't exist
   if (employeeIndex != -1)
   {
-    Employee employee = getEmployeeByIndex(employeeIndex);
+    Employee &employee = getEmployeeByIndex(employeeIndex);
     employee.increaseYearsOfEmployment();
   }
 }

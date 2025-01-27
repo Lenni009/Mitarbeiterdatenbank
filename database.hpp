@@ -28,7 +28,7 @@ public:
 
   // employee item getters
   int getEmployeeIndexById(unsigned int employeeId);
-  Employee getEmployeeByIndex(unsigned int index);
+  Employee &getEmployeeByIndex(unsigned int index);
 
   // get ID for new employee
   unsigned int getNewEmployeeId();

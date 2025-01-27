@@ -34,7 +34,7 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
     {
       break;
     }
-    Employee employee = db.getEmployeeByIndex(employeeIndex);
+    Employee &employee = db.getEmployeeByIndex(employeeIndex);
     unsigned int yearsOfEmployment = employee.getYearsOfEmployment();
     std::cout << "Jahre der Betriebszugehörigkeit erfolgreich auf " << yearsOfEmployment << " erhöht" << std::endl;
     break;
