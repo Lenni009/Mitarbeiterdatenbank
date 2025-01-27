@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "employee.hpp"
 
 Employee::Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary)
@@ -48,7 +49,12 @@ std::string Employee::getEmployeeFirstName()
 std::string Employee::getEmployeeData()
 {
   char sep = ',';
-  return std::string(name + sep + firstName + sep + postalCode + sep + std::to_string(salary) + sep + std::to_string(yearsOfEmployment));
+  // std::to_string() has unexpected behaviour with floats, so we're using stringstreams instead.
+  // solution from https://stackoverflow.com/questions/2125880/convert-float-to-stdstring-in-c
+  std::ostringstream strstream;
+  strstream << salary;
+  std::string salaryString(strstream.str());
+  return std::string(name + sep + firstName + sep + postalCode + sep + salaryString + sep + std::to_string(yearsOfEmployment));
 }
 
 void Employee::outputDataToConsole()
