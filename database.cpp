@@ -36,8 +36,8 @@ void Database::readFile(std::string path)
       args.push_back(value);
     }
 
-    float salary = std::stof(args.at(4));
-    addEmployee(args.at(1), args.at(2), args.at(3), salary);
+    float salary = std::stof(args.at(3));
+    addEmployee(args.at(0), args.at(1), args.at(2), salary);
   }
 }
 
