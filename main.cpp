@@ -1,10 +1,24 @@
 #include <iostream>
 #include <algorithm>
+#include <limits>
 #include "database.hpp"
 
 // instantiate DB class
 // creating this on the stack and in the global scope since the DB will be used during the entire runtime
 Database db = Database();
+
+void showInvalidOptionError()
+{
+  std::cout << "Ungültige Option" << std::endl;
+
+  // the following is to prevent an infinite loop on invalid input
+  // clear error flags
+  std::cin.clear();
+
+  // ignore the rest of the line (discard the bad input)
+  // use std::numeric_limits<std::streamsize>::max() to ensure everything until a newline is ignored
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
 
 void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
 {
@@ -50,6 +64,9 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
     }
     break;
   }
+
+  default:
+    showInvalidOptionError();
   }
 }
 
@@ -95,6 +112,9 @@ void handleEmployeeSearch(unsigned int findAction)
 
     break;
   }
+
+  default:
+    showInvalidOptionError();
   }
 }
 
@@ -110,7 +130,6 @@ bool getUserAction()
 
   unsigned int action;
   std::cin >> action;
-  std::cout << std::endl;
 
   switch (action)
   {
@@ -182,6 +201,9 @@ bool getUserAction()
   case 5:
     // exit
     return true;
+
+  default:
+    showInvalidOptionError();
   }
 
   // continue
