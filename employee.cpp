@@ -48,7 +48,7 @@ std::string Employee::getEmployeeFirstName()
 std::string Employee::getEmployeeData()
 {
   char sep = ',';
-  return std::string(name + sep + firstName + sep + postalCode + sep + std::to_string(salary) + std::to_string(yearsOfEmployment));
+  return std::string(name + sep + firstName + sep + postalCode + sep + std::to_string(salary) + sep + std::to_string(yearsOfEmployment));
 }
 
 void Employee::outputDataToConsole()
