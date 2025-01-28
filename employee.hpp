@@ -29,6 +29,6 @@ public:
   void outputDataToConsole();
 
   // mutate data
-  void increaseSalary(float factor); // no huge precision needed -> using float instead of double
+  void adjustSalary(float factor); // no huge precision needed -> using float instead of double
   void increaseYearsOfEmployment();  // +1 year
 };

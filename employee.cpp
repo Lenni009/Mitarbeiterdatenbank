@@ -55,7 +55,7 @@ void Employee::outputDataToConsole()
 }
 
 // setters
-void Employee::increaseSalary(float factor)
+void Employee::adjustSalary(float factor)
 {
   salary *= factor;
 }
