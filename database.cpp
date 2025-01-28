@@ -129,7 +129,11 @@ unsigned int Database::getNewEmployeeId()
   }
 }
 
-std::vector<unsigned int> Database::findEmployee(std::string name, std::string firstName)
+/// @brief Get a list of employee IDs filtered by the employees' names
+/// @param name Surname of the employee (case sensitive)
+/// @param firstName First name of the employee (case sensitive)
+/// @return Vector of employee IDs that match the given name combination
+std::vector<unsigned int> Database::findEmployeesByName(std::string name, std::string firstName)
 {
   std::vector<unsigned int> filterResults;
   for (Employee &employee : db)
@@ -142,7 +146,7 @@ std::vector<unsigned int> Database::findEmployee(std::string name, std::string f
   return filterResults;
 }
 
-std::vector<unsigned int> Database::employmentAnniversary(unsigned int yearsOfEmployment)
+std::vector<unsigned int> Database::findEmployeesByEmploymentAnniversary(unsigned int yearsOfEmployment)
 {
   std::vector<unsigned int> filterResults;
   for (Employee &employee : db)

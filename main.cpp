@@ -91,7 +91,7 @@ void handleEmployeeSearch(unsigned int findAction)
     std::string name;
     std::cin >> name;
 
-    std::vector<unsigned int> employeeIds = db.findEmployee(name, firstName);
+    std::vector<unsigned int> employeeIds = db.findEmployeesByName(name, firstName);
 
     std::cout << "Folgende Mitarbeiternummern sind mit dem Namen " << firstName << " " << name << " assoziiert:" << std::endl;
     for (unsigned int &employeeId : employeeIds)
@@ -108,7 +108,7 @@ void handleEmployeeSearch(unsigned int findAction)
     unsigned int yearsOfEmployment;
     std::cin >> yearsOfEmployment;
 
-    std::vector<unsigned int> employeeIds = db.employmentAnniversary(yearsOfEmployment);
+    std::vector<unsigned int> employeeIds = db.findEmployeesByEmploymentAnniversary(yearsOfEmployment);
 
     std::cout << "Folgende Mitarbeiternummern haben " << yearsOfEmployment << "-jähriges Jubiläum:" << std::endl;
     for (unsigned int &employeeId : employeeIds)
