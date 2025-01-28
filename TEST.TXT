@@ -1,0 +1,58 @@
+DB Inhalt:
+Mustermann,Max,01234,123,0
+
+Musterfrau,Erika,09876,987,0
+
+Happy Path:
+- Datenbank ansehen:
+  Mitarbeiternummer: 0
+  Name: Mustermann
+  Vorname: Max
+  PLZ: 01234
+  Gehalt: 123
+  Jahre der Betriebszugehörigkeit: 0
+
+  Mitarbeiternummer: 1
+  Name: Musterfrau
+  Vorname: Erika
+  PLZ: 09876
+  Gehalt: 987
+  Jahre der Betriebszugehörigkeit: 0
+
+- Mitarbeiter*in hinzufügen:
+  - Vorname: John
+  - Name: Doe
+  - PLZ: 45678
+  - Gehalt: 100000
+-> Nutzer John Doe mit der Mitarbeiternummer 2 erfolgreich hinzugefügt
+
+- Mitarbeiter*in bearbeiten:
+  - Mitarbeiternummer: 1
+    - Gehalt erhöhen
+      -> Gehalt erfolgreich erhöht (neuer Wert 1184.4)
+    - Jahre der Betriebszugehörigkeit erhöhen
+      -> Jahre der Betriebszugehörigkeit erfolgreich auf 1 erhöht
+    - Mitarbeiter*in entfernen
+      -> Mitarbeiter*in erfolgreich entfernt
+
+Zwischenschritt: Betriebszugehörigkeit von Mitarbeiternummer 2 erhöhen
+
+- Mitarbeiter*in suchen:
+  - Mit Name:
+    - Vorname: Max
+    - Nachname: Mustermann
+      -> Folgende Mitarbeiternummern sind mit dem Namen Max Mustermann assoziiert:
+         0
+  - Mit Jahren der Betriebszugehörigkeit:
+    - 1
+      -> Folgende Mitarbeiternummern haben 1-jähriges Jubiläum:
+         2
+
+- Programm beenden
+  -> Exit Code 0
+
+
+Unhappy Path:
+- Floating point input in selection menu -> "Ungültige Option"
+- Char input in selection menu -> "Ungültige Option"
+- Out of range employee ID in edit employee menu (-1 / 99999) -> "Ungültige Mitarbeiternummer"
