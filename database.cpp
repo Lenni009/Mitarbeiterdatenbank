@@ -4,6 +4,7 @@
 #include <sstream>
 #include <algorithm>
 #include <vector>
+#include <memory>
 #include "database.hpp"
 #include "employee.hpp"
 
@@ -58,7 +59,8 @@ unsigned int Database::addEmployee(std::string name, std::string firstName, std:
 {
   unsigned int employeeId = getNewEmployeeId();
 
-  Employee *employee = new Employee(employeeId, name, firstName, postalCode, salary);
+  // using unique_ptr to automatically allocate/deallocate memory when object is created/goes out of scope
+  std::unique_ptr<Employee> employee = std::make_unique<Employee>(employeeId, name, firstName, postalCode, salary);
 
   db.push_back(*employee);
   return employeeId;
