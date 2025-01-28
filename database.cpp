@@ -78,6 +78,8 @@ unsigned int Database::addEmployee(std::string name, std::string firstName, std:
   return employeeId;
 }
 
+/// @brief Removes an employee with a given ID from the DB
+/// @param employeeId ID of the employee to be removed
 void Database::removeEmployee(unsigned int employeeId)
 {
   const int employeeIndex = getEmployeeIndexById(employeeId);
@@ -104,7 +106,7 @@ int Database::getEmployeeIndexById(unsigned int employeeId)
   }
   else
   {
-    std::cout << "Ungültige Mitarbeiternummer!" << std::endl;
+    std::cerr << "Ungültige Mitarbeiternummer!" << std::endl;
     return -1;
   }
 }
@@ -162,6 +164,7 @@ std::vector<unsigned int> Database::findEmployeesByYearsOfEmployment(unsigned in
   return filterResults;
 }
 
+/// @brief Outputs all DB entries in a human readable format to the console
 void Database::viewDB()
 {
   // access by reference to avoid copying
@@ -172,26 +175,33 @@ void Database::viewDB()
   }
 }
 
-// fancy wrapper around the employee's class own method, but it is required by the task that this method exists on the DB
-void Database::increaseSalary(unsigned int employeeId, float factor)
+// This is just a fancy wrapper around the employee's class own method, but it is required by the task that this method exists on the DB.
+
+/// @brief Adjust (increase/decrease) the salary of an employee with a given employee ID by a given factor.
+/// @param employeeId ID of the employee whose salary should be increased
+/// @param factor Factor by which the salary should be increased. Must be >= 0.
+void Database::adjustSalary(unsigned int employeeId, float factor)
 {
   int employeeIndex = getEmployeeIndexById(employeeId);
-  // -1 = invalid index, ID doesn't exist
+  // -1 = invalid index -> ID doesn't exist
   if (employeeIndex != -1)
   {
     Employee &employee = getEmployeeByIndex(employeeIndex);
-    employee.increaseSalary(factor);
+    employee.adjustSalary(factor);
   }
 }
 
-// another method that the task requires to be on the DB object
+// The task requires that this method be on the DB object as well
+
+/// @brief Increase the years of employment for an employee with a given employee ID
+/// @param employeeId ID of the employee whose years of employment should be increased
 void Database::increaseYearsOfEmployment(unsigned int employeeId)
 {
   // the code here is pretty much similar to the above method, but I'm lacking the knowledge to make this generic.
   // since a function in C++ can only have one return type (as far as I know), I cannot declare a method that *might* return an employee, or might return void.
   // so the alternative is to return an int and then check whether that int has an expected value.
   int employeeIndex = getEmployeeIndexById(employeeId);
-  // -1 = invalid index, ID doesn't exist
+  // -1 = invalid index -> ID doesn't exist
   if (employeeIndex != -1)
   {
     Employee &employee = getEmployeeByIndex(employeeIndex);
@@ -199,6 +209,9 @@ void Database::increaseYearsOfEmployment(unsigned int employeeId)
   }
 }
 
+/// @brief Checks whether a given ID exists in the DB
+/// @param employeeId Employee ID to check
+/// @return Whether the given employee ID exists in the DB
 bool Database::isEmployeeIdValid(unsigned int employeeId)
 {
   return getEmployeeIndexById(employeeId) != -1;
