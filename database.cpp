@@ -8,6 +8,8 @@
 #include "database.hpp"
 #include "employee.hpp"
 
+/// @brief Reads the specified file and fills the DB vector. Expects a csv file.
+/// @param path Path to the file to read
 void Database::readFile(std::string path)
 {
   std::ifstream file(path);
@@ -35,6 +37,8 @@ void Database::readFile(std::string path)
   }
 }
 
+/// @brief Saves the DB vector's data to the given csv file
+/// @param path Path to the csv file the data should be saved to
 void Database::saveFile(std::string path)
 {
   std::string outputText;
@@ -56,6 +60,13 @@ void Database::saveFile(std::string path)
   dbFile.close();
 }
 
+/// @brief Add an employee object to the DB vector
+/// @param name Surname of the employee
+/// @param firstName First name of the employee
+/// @param postalCode Postal code of where the employee lives
+/// @param salary The employee's salary
+/// @param yearsOfEmployment How long the employee has been employed at the company
+/// @return The employee's unique ID to identify them in the DB during runtime
 unsigned int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment)
 {
   unsigned int employeeId = getNewEmployeeId();
@@ -78,7 +89,9 @@ void Database::removeEmployee(unsigned int employeeId)
   }
 }
 
-// returning an int so we can check for invalid IDs
+/// @brief Gets the index of an employee object with a specific ID
+/// @param employeeId The ID to be searched for in the DB
+/// @return The index where the wanted employee object is in the vector
 int Database::getEmployeeIndexById(unsigned int employeeId)
 {
   // find element where Employee.employeeId == employeeId
@@ -96,6 +109,9 @@ int Database::getEmployeeIndexById(unsigned int employeeId)
   }
 }
 
+/// @brief Get a reference to the employee object at a specific index in the DB vector
+/// @param index index in the DB to get a reference to
+/// @return Reference to the employee object at the given index
 Employee &Database::getEmployeeByIndex(unsigned int index)
 {
   return db.at(index);
