@@ -7,6 +7,7 @@
 // creating this on the stack and in the global scope since the DB will be used during the entire runtime
 Database db = Database();
 
+/// @brief Shows an error about the given option being invalid and handles the console's error state to prevent infinite loops
 void showInvalidOptionError()
 {
   std::cout << "Ungültige Option" << std::endl;
@@ -20,6 +21,9 @@ void showInvalidOptionError()
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
+/// @brief Handles the UI for editing an employee
+/// @param employeeId ID of the employee to edit
+/// @param editAction Number of the action to perform on the employee object. Expected to be one of 1,2,3
 void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
 {
   switch (editAction)
@@ -70,6 +74,8 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
   }
 }
 
+/// @brief Handles the search options UI
+/// @param findAction number of the action to be executed. Expected to be 1 or 2.
 void handleEmployeeSearch(unsigned int findAction)
 {
   switch (findAction)
@@ -118,7 +124,13 @@ void handleEmployeeSearch(unsigned int findAction)
   }
 }
 
-bool getUserAction()
+/// @brief
+/// Handles main user interaction for the program.
+/// I am aware that the return type and function parameter do not fit the function name at all.
+/// However, I need a way of communicating data between main() and this function.
+/// @param filePath path to the file that the DB file should be saved to
+/// @return whether the program should exit
+bool getUserAction(std::string filePath)
 {
   // get user action
   std::cout << "[1] Datenbank ansehen" << std::endl;
@@ -161,6 +173,7 @@ bool getUserAction()
     unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, salary, 0);
 
     std::cout << "Nutzer " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
+    db.saveFile(filePath);
     break;
   }
 
@@ -188,6 +201,7 @@ bool getUserAction()
     std::cin >> editAction;
 
     handleEmployeeEdit(employeeIdToEdit, editAction);
+    db.saveFile(filePath);
     break;
   }
 
@@ -203,6 +217,7 @@ bool getUserAction()
     std::cin >> findAction;
 
     handleEmployeeSearch(findAction);
+    db.saveFile(filePath);
     break;
   }
 
@@ -223,17 +238,24 @@ int main()
   const std::string filePath = "db.csv";
 
   // read file
-  db.readFile(filePath);
+  try
+  {
+    db.readFile(filePath);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Datenbankdatei (db.csv) konnte nicht gelesen werden!" << "\n"
+              << "Existierende Datei wird bei Programmende überschrieben!" << std::endl;
+  }
 
   // restart dialogue after an action has been completed to prevent program restart requirement for further actions
   while (true)
   {
     // true = exit; false = continue
-    bool exit = getUserAction();
-    db.saveFile(filePath);
+    bool exit = getUserAction(filePath);
     std::cout << std::endl;
 
-    // program exit
+    // exit program if user has chosen so
     if (exit)
     {
       return 0;
