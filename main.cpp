@@ -1,7 +1,9 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
-#include "database.hpp"
+// include cpp files so they are automatically included in the final bundle
+#include "employee.cpp"
+#include "database.cpp"
 
 // instantiate DB class
 // creating this on the stack and in the global scope since the DB will be used during the entire runtime
@@ -10,7 +12,7 @@ Database db = Database();
 /// @brief Shows an error about the given option being invalid and handles the console's error state to prevent infinite loops
 void showInvalidOptionError()
 {
-  std::cout << "Ungültige Option" << std::endl;
+  std::cerr << "Ungültige Option" << std::endl;
 
   // the following is to prevent an infinite loop on invalid input
   // clear error flags
@@ -35,9 +37,15 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
     float factor;
     std::cin >> factor;
 
+    if (factor <= 0)
+    {
+      std::cerr << "Faktor darf nicht 0 oder negativ sein!" << std::endl;
+      break;
+    }
+
     if (db.isEmployeeIdValid(employeeId))
     {
-      db.increaseSalary(employeeId, factor);
+      db.adjustSalary(employeeId, factor);
       std::cout << "Gehalt erfolgreich erhöht" << std::endl;
     }
     break;
