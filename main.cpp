@@ -152,12 +152,13 @@ bool getUserAction()
     std::cout << "PLZ: ";
     std::string postalCode;
     std::cin >> postalCode;
-
+    // limiting to 5 digits since German postal codes only have 5 digits (and this is a German program): https://de.wikipedia.org/wiki/Postleitzahl_(Deutschland)
+    std::string limitedPostalCode = postalCode.substr(0, 5);
     std::cout << "Gehalt: ";
     float salary;
     std::cin >> salary;
 
-    unsigned int employeeId = db.addEmployee(name, firstName, postalCode, salary);
+    unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, salary);
 
     std::cout << "Nutzer " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
     break;
