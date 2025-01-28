@@ -8,8 +8,6 @@
 #include "database.hpp"
 #include "employee.hpp"
 
-/// @brief Reads the specified file and fills the DB vector. Expects a csv file.
-/// @param path Path to the file to read
 void Database::readFile(std::string path)
 {
   std::ifstream file(path);
@@ -37,8 +35,6 @@ void Database::readFile(std::string path)
   }
 }
 
-/// @brief Saves the DB vector's data to the given csv file
-/// @param path Path to the csv file the data should be saved to
 void Database::saveFile(std::string path)
 {
   std::string outputText;
@@ -60,13 +56,14 @@ void Database::saveFile(std::string path)
   dbFile.close();
 }
 
-/// @brief Add an employee object to the DB vector
-/// @param name Surname of the employee
-/// @param firstName First name of the employee
-/// @param postalCode Postal code of where the employee lives
-/// @param salary The employee's salary
-/// @param yearsOfEmployment How long the employee has been employed at the company
-/// @return The employee's unique ID to identify them in the DB during runtime
+// employee add/remove
+// the task dictates the following: `int mitarbeiternummer = datenbank.neuerMitarbeiter ( name , vorname , plz , gehalt );`
+// this seems to be an error, since by that definition, the yearsOfEmployment are not stored in the DB, and would always be set to 0 for everyone on program start.
+// this goes against the following statements in the task:
+// "Jeder Mitarbeiter wird durch folgende Einträge beschrieben: Name, Vorname, Postleitzahl, Gehalt, Jahre der Betriebszugehörigkeit."
+// "Die Werte stehen in einer Datei, sodass jede Zeile genau einen der Einträge in der genannten Reihenfolge enthält."
+// therefore this method takes the yearsOfEmployment, despite what the task requires.
+
 unsigned int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment)
 {
   unsigned int employeeId = getNewEmployeeId();
@@ -78,8 +75,6 @@ unsigned int Database::addEmployee(std::string name, std::string firstName, std:
   return employeeId;
 }
 
-/// @brief Removes an employee with a given ID from the DB
-/// @param employeeId ID of the employee to be removed
 void Database::removeEmployee(unsigned int employeeId)
 {
   const int employeeIndex = getEmployeeIndexById(employeeId);
@@ -91,9 +86,6 @@ void Database::removeEmployee(unsigned int employeeId)
   }
 }
 
-/// @brief Gets the index of an employee object with a specific ID
-/// @param employeeId The ID to be searched for in the DB
-/// @return The index where the wanted employee object is in the vector
 int Database::getEmployeeIndexById(unsigned int employeeId)
 {
   // find element where Employee.employeeId == employeeId
@@ -111,9 +103,6 @@ int Database::getEmployeeIndexById(unsigned int employeeId)
   }
 }
 
-/// @brief Get a reference to the employee object at a specific index in the DB vector
-/// @param index index in the DB to get a reference to
-/// @return Reference to the employee object at the given index
 Employee &Database::getEmployeeByIndex(unsigned int index)
 {
   return db.at(index);
@@ -123,6 +112,7 @@ unsigned int Database::getNewEmployeeId()
 {
   if (db.size())
   {
+    // there is no scenario that I can think of where the last item in the DB doesn't have the highest ID
     return db.back().getEmployeeId() + 1;
   }
   else
@@ -131,10 +121,6 @@ unsigned int Database::getNewEmployeeId()
   }
 }
 
-/// @brief Get a list of employee IDs filtered by the employees' names
-/// @param name Surname of the employee (case sensitive)
-/// @param firstName First name of the employee (case sensitive)
-/// @return Vector of employee IDs that match the given name combination
 std::vector<unsigned int> Database::findEmployeesByName(std::string name, std::string firstName)
 {
   std::vector<unsigned int> filterResults;
@@ -148,9 +134,6 @@ std::vector<unsigned int> Database::findEmployeesByName(std::string name, std::s
   return filterResults;
 }
 
-/// @brief Get a list of employee IDs filtered by the employees' years of employment
-/// @param yearsOfEmployment Specific number of years that should be filtered by
-/// @return Vector of employee IDs that match the given years of employment
 std::vector<unsigned int> Database::findEmployeesByYearsOfEmployment(unsigned int yearsOfEmployment)
 {
   std::vector<unsigned int> filterResults;
@@ -164,7 +147,8 @@ std::vector<unsigned int> Database::findEmployeesByYearsOfEmployment(unsigned in
   return filterResults;
 }
 
-/// @brief Outputs all DB entries in a human readable format to the console
+// get output of DB data
+
 void Database::viewDB()
 {
   // access by reference to avoid copying
@@ -176,10 +160,8 @@ void Database::viewDB()
 }
 
 // This is just a fancy wrapper around the employee's class own method, but it is required by the task that this method exists on the DB.
+// I would just use these methods on the employee objects directly, but the task requires this to be on the db object
 
-/// @brief Adjust (increase/decrease) the salary of an employee with a given employee ID by a given factor.
-/// @param employeeId ID of the employee whose salary should be increased
-/// @param factor Factor by which the salary should be increased. Must be >= 0.
 void Database::adjustSalary(unsigned int employeeId, float factor)
 {
   int employeeIndex = getEmployeeIndexById(employeeId);
@@ -193,8 +175,6 @@ void Database::adjustSalary(unsigned int employeeId, float factor)
 
 // The task requires that this method be on the DB object as well
 
-/// @brief Increase the years of employment for an employee with a given employee ID
-/// @param employeeId ID of the employee whose years of employment should be increased
 void Database::increaseYearsOfEmployment(unsigned int employeeId)
 {
   // the code here is pretty much similar to the above method, but I'm lacking the knowledge to make this generic.
@@ -209,9 +189,8 @@ void Database::increaseYearsOfEmployment(unsigned int employeeId)
   }
 }
 
-/// @brief Checks whether a given ID exists in the DB
-/// @param employeeId Employee ID to check
-/// @return Whether the given employee ID exists in the DB
+// input validation
+
 bool Database::isEmployeeIdValid(unsigned int employeeId)
 {
   return getEmployeeIndexById(employeeId) != -1;
