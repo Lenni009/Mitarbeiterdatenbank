@@ -9,6 +9,8 @@
 // this class should only be instantiated once.
 // since this project's scope is quite limited, the singleton pattern is not used here, as it would be unnecessary overhead and complexity.
 // should it ever become necessary to implement, look here: https://refactoring.guru/design-patterns/singleton/cpp/example
+
+/// @brief Wrapper class for the employee database object. Holds methods to read/write to and from the DB.
 class Database
 {
 private:
