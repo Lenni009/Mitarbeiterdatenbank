@@ -61,7 +61,7 @@ unsigned int Database::addEmployee(std::string name, std::string firstName, std:
   unsigned int employeeId = getNewEmployeeId();
 
   // using unique_ptr to automatically allocate/deallocate memory when object is created/goes out of scope
-  std::unique_ptr<Employee> employee = std::make_unique<Employee>(employeeId, name, firstName, postalCode, salary);
+  std::unique_ptr<Employee> employee = std::make_unique<Employee>(employeeId, name, firstName, postalCode, salary, yearsOfEmployment);
 
   db.push_back(*employee);
   return employeeId;
