@@ -1,1 +1,1 @@
-g++ -Wall -o mitarbeiter main.cpp database.cpp employee.cpp
+g++ -Wall -o mitarbeiter main.cpp

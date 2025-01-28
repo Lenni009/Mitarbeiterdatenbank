@@ -25,4 +25,4 @@ Einige Methoden sollen auf der DB-Klasse implementiert werden anstatt auf der Mi
 
 ## Compile
 
-g++ -Wall -o mitarbeiter main.cpp database.cpp employee.cpp
+g++ -Wall -o mitarbeiter main.cpp
