@@ -15,9 +15,6 @@ private:
   std::vector<Employee> db;
 
 public:
-  Database();
-  ~Database();
-
   // file operations
   void readFile(std::string path);
   void saveFile(std::string path);

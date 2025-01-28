@@ -7,14 +7,6 @@
 #include "database.hpp"
 #include "employee.hpp"
 
-Database::Database()
-{
-}
-
-Database::~Database()
-{
-}
-
 void Database::readFile(std::string path)
 {
   std::ifstream file(path);
