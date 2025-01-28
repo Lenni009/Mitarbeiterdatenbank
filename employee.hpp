@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 
+/// @brief Class for the employee objects inside the DB. Contains all employee data and methods to read and manipulate that data.
 class Employee
 {
 private:
