@@ -172,6 +172,13 @@ bool getUserAction()
     std::cin >> employeeIdToEdit;
     std::cout << std::endl;
 
+    // input validation
+    bool isValid = db.isEmployeeIdValid(employeeIdToEdit);
+    if (!isValid)
+    {
+      break;
+    }
+
     std::cout << "[1] Gehalt erhöhen" << std::endl;
     std::cout << "[2] Jahre der Betriebszugehörigkeit erhöhen" << std::endl;
     std::cout << "[3] Mitarbeiter*in entfernen" << std::endl;
