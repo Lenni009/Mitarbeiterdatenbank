@@ -158,7 +158,7 @@ bool getUserAction()
     float salary;
     std::cin >> salary;
 
-    unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, salary);
+    unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, salary, 0);
 
     std::cout << "Nutzer " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
     break;
@@ -167,7 +167,7 @@ bool getUserAction()
   case 3:
   {
     // edit employee
-    std::cout << "Zu bearbeitende Mitarbeiternummer: ";
+    std::cout << "\nZu bearbeitende Mitarbeiternummer: ";
     unsigned int employeeIdToEdit;
     std::cin >> employeeIdToEdit;
     std::cout << std::endl;

@@ -30,7 +30,8 @@ void Database::readFile(std::string path)
     }
 
     float salary = std::stof(args.at(3));
-    addEmployee(args.at(0), args.at(1), args.at(2), salary);
+    unsigned int yearsOfEmployment = std::stoi(args.at(4));
+    addEmployee(args.at(0), args.at(1), args.at(2), salary, yearsOfEmployment);
   }
 }
 
@@ -55,7 +56,7 @@ void Database::saveFile(std::string path)
   dbFile.close();
 }
 
-unsigned int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary)
+unsigned int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment)
 {
   unsigned int employeeId = getNewEmployeeId();
 

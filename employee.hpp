@@ -13,7 +13,7 @@ private:
   unsigned int yearsOfEmployment;
 
 public:
-  Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary);
+  Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment);
 
   // getters
   // individual attributes

@@ -20,7 +20,13 @@ public:
   void saveFile(std::string path);
 
   // employee add/remove
-  unsigned int addEmployee(std::string name, std::string firstName, std::string postalCode, float salary); // I wouldn't return anything from this function, but the task requires this to return the employee id
+  // the task dictates the following: `int mitarbeiternummer = datenbank.neuerMitarbeiter ( name , vorname , plz , gehalt );`
+  // this seems to be an error, since by that definition, the yearsOfEmployment are not stored in the DB, and would always be set to 0 for everyone on program start.
+  // this goes against the following statements in the task:
+  // "Jeder Mitarbeiter wird durch folgende Einträge beschrieben: Name, Vorname, Postleitzahl, Gehalt, Jahre der Betriebszugehörigkeit."
+  // "Die Werte stehen in einer Datei, sodass jede Zeile genau einen der Einträge in der genannten Reihenfolge enthält."
+  // therefore this method takes the yearsOfEmployment, despite what the task requires.
+  unsigned int addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment); // I wouldn't return anything from this function, but the task requires this to return the employee id
   void removeEmployee(unsigned int employeeId);
 
   // employee item getters

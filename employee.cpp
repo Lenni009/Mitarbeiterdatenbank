@@ -2,14 +2,14 @@
 #include <sstream>
 #include "employee.hpp"
 
-Employee::Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary)
+Employee::Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment)
 {
   this->employeeId = employeeId;
   this->name = name;
   this->firstName = firstName;
   this->postalCode = postalCode;
   this->salary = salary;
-  this->yearsOfEmployment = 0;
+  this->yearsOfEmployment = yearsOfEmployment;
 }
 
 // getters
