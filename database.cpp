@@ -146,7 +146,10 @@ std::vector<unsigned int> Database::findEmployeesByName(std::string name, std::s
   return filterResults;
 }
 
-std::vector<unsigned int> Database::findEmployeesByEmploymentAnniversary(unsigned int yearsOfEmployment)
+/// @brief Get a list of employee IDs filtered by the employees' years of employment
+/// @param yearsOfEmployment Specific number of years that should be filtered by
+/// @return Vector of employee IDs that match the given years of employment
+std::vector<unsigned int> Database::findEmployeesByYearsOfEmployment(unsigned int yearsOfEmployment)
 {
   std::vector<unsigned int> filterResults;
   for (Employee &employee : db)
