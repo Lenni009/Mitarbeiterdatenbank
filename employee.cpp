@@ -46,7 +46,7 @@ std::string Employee::getEmployeeData()
 
 void Employee::outputDataToConsole()
 {
-  std::cout << "ID: " << employeeId << std::endl;
+  std::cout << "Mitarbeiternummer: " << employeeId << std::endl;
   std::cout << "Name: " << name << std::endl;
   std::cout << "Vorname: " << firstName << std::endl;
   std::cout << "PLZ: " << postalCode << std::endl;

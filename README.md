@@ -6,7 +6,7 @@ Schreibt und liest eine Mitarbeiterdatenbank in/von einer Datei.
 
 Für jede:n Mitarbeiter:in werden die folgenden Attribute gespeichert:
 
-- Mitarbeiter ID
+- Mitarbeiternummer
 - Name
 - Vorname
 - PLZ
