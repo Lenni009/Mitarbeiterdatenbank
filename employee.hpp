@@ -14,7 +14,6 @@ private:
 
 public:
   Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary);
-  ~Employee();
 
   // getters
   // individual attributes

@@ -12,10 +12,6 @@ Employee::Employee(unsigned int employeeId, std::string name, std::string firstN
   this->yearsOfEmployment = 0;
 }
 
-Employee::~Employee()
-{
-}
-
 // getters
 unsigned int Employee::getYearsOfEmployment()
 {
