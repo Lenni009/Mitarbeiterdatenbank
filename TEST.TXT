@@ -1,9 +1,9 @@
-DB Inhalt:
+db.csv Inhalt:
 Mustermann,Max,01234,123,0
 
 Musterfrau,Erika,09876,987,0
 
-Happy Path:
+Happy Path (gültige Eingaben, erwartetes Nutzerverhalten):
 - Datenbank ansehen:
   Mitarbeiternummer: 0
   Name: Mustermann
