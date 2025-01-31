@@ -182,7 +182,7 @@ bool getUserAction(std::string filePath)
 
     unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, validatedSalary, 0);
 
-    std::cout << "Nutzer " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
+    std::cout << "Mitarbeiter*in " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
     db.saveFile(filePath);
     break;
   }
