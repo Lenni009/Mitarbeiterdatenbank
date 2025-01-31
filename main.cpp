@@ -1,13 +1,13 @@
 #include <iostream>
 #include <algorithm>
 #include <limits>
+#include <memory>
 // include cpp files so they are automatically included in the final bundle
 #include "employee.cpp"
 #include "database.cpp"
 
 // instantiate DB class
-// creating this on the stack and in the global scope since the DB will be used during the entire runtime
-Database db = Database();
+std::unique_ptr<Database> db = std::make_unique<Database>();
 
 /// @brief Shows an error about the given option being invalid and handles the console's error state to prevent infinite loops
 void showInvalidOptionError()
@@ -43,9 +43,9 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
       break;
     }
 
-    if (db.isEmployeeIdValid(employeeId))
+    if (db->isEmployeeIdValid(employeeId))
     {
-      db.adjustSalary(employeeId, factor);
+      db->adjustSalary(employeeId, factor);
       std::cout << "Gehalt erfolgreich erhöht" << std::endl;
     }
     break;
@@ -54,13 +54,13 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
   case 2:
   {
     // increase years of employment
-    db.increaseYearsOfEmployment(employeeId);
-    int employeeIndex = db.getEmployeeIndexById(employeeId);
+    db->increaseYearsOfEmployment(employeeId);
+    int employeeIndex = db->getEmployeeIndexById(employeeId);
     if (employeeIndex == -1)
     {
       break;
     }
-    Employee &employee = db.getEmployeeByIndex(employeeIndex);
+    Employee &employee = db->getEmployeeByIndex(employeeIndex);
     unsigned int yearsOfEmployment = employee.getYearsOfEmployment();
     std::cout << "Jahre der Betriebszugehörigkeit erfolgreich auf " << yearsOfEmployment << " erhöht" << std::endl;
     break;
@@ -69,9 +69,9 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
   case 3:
   {
     // remove employment
-    if (db.isEmployeeIdValid(employeeId))
+    if (db->isEmployeeIdValid(employeeId))
     {
-      db.removeEmployee(employeeId);
+      db->removeEmployee(employeeId);
       std::cout << "Mitarbeiter*in erfolgreich entfernt" << std::endl;
     }
     break;
@@ -99,7 +99,7 @@ void handleEmployeeSearch(unsigned int findAction)
     std::string name;
     std::cin >> name;
 
-    std::vector<unsigned int> employeeIds = db.findEmployeesByName(name, firstName);
+    std::vector<unsigned int> employeeIds = db->findEmployeesByName(name, firstName);
 
     std::cout << "Folgende Mitarbeiternummern sind mit dem Namen " << firstName << " " << name << " assoziiert:" << std::endl;
     for (unsigned int &employeeId : employeeIds)
@@ -117,7 +117,7 @@ void handleEmployeeSearch(unsigned int findAction)
     std::cin >> yearsOfEmployment;
     unsigned int absYearsOfEmployment = std::abs(yearsOfEmployment);
 
-    std::vector<unsigned int> employeeIds = db.findEmployeesByYearsOfEmployment(absYearsOfEmployment);
+    std::vector<unsigned int> employeeIds = db->findEmployeesByYearsOfEmployment(absYearsOfEmployment);
 
     std::cout << "Folgende Mitarbeiternummern haben " << absYearsOfEmployment << "-jähriges Jubiläum:" << std::endl;
     for (unsigned int &employeeId : employeeIds)
@@ -152,11 +152,13 @@ bool getUserAction(std::string filePath)
   unsigned int action;
   std::cin >> action;
 
+  std::cout << std::endl;
+
   switch (action)
   {
   case 1:
     // view db formatted as key/value pairs in the console
-    db.viewDB();
+    db->viewDB();
     break;
 
   case 2:
@@ -181,23 +183,23 @@ bool getUserAction(std::string filePath)
     std::cin >> salary;
     float validatedSalary = std::max(std::abs(salary), float(1));
 
-    unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, validatedSalary, 0);
+    unsigned int employeeId = db->addEmployee(name, firstName, limitedPostalCode, validatedSalary, 0);
 
     std::cout << "Mitarbeiter*in " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
-    db.saveFile(filePath);
+    db->saveFile(filePath);
     break;
   }
 
   case 3:
   {
     // edit employee
-    std::cout << "\nZu bearbeitende Mitarbeiternummer: ";
+    std::cout << "Zu bearbeitende Mitarbeiternummer: ";
     unsigned int employeeIdToEdit;
     std::cin >> employeeIdToEdit;
     std::cout << std::endl;
 
     // input validation
-    bool isValid = db.isEmployeeIdValid(employeeIdToEdit);
+    bool isValid = db->isEmployeeIdValid(employeeIdToEdit);
     if (!isValid)
     {
       break;
@@ -211,15 +213,17 @@ bool getUserAction(std::string filePath)
     unsigned int editAction;
     std::cin >> editAction;
 
+    std::cout << std::endl;
+
     handleEmployeeEdit(employeeIdToEdit, editAction);
-    db.saveFile(filePath);
+    db->saveFile(filePath);
     break;
   }
 
   case 4:
   {
     // find employee
-    std::cout << "Mitarbeiter*in finden" << std::endl;
+    std::cout << "Mitarbeiter*in suchen" << std::endl;
     std::cout << "[1] mit Name" << std::endl;
     std::cout << "[2] mit Jahren der Betriebszugehörigkeit" << std::endl;
     std::cout << "Gewählte Option: ";
@@ -227,8 +231,10 @@ bool getUserAction(std::string filePath)
     unsigned int findAction;
     std::cin >> findAction;
 
+    std::cout << std::endl;
+
     handleEmployeeSearch(findAction);
-    db.saveFile(filePath);
+    db->saveFile(filePath);
     break;
   }
 
@@ -251,7 +257,7 @@ int main()
   // read file
   try
   {
-    db.readFile(filePath);
+    db->readFile(filePath);
   }
   catch (const std::exception &e)
   {
