@@ -262,7 +262,7 @@ int main()
   catch (const std::exception &e)
   {
     std::cerr << "Datenbankdatei (db.csv) konnte nicht gelesen werden!" << "\n"
-              << "Existierende Datei wird bei Programmende überschrieben!" << std::endl;
+              << "Existierende Datei wird bei Bearbeitungen überschrieben!" << std::endl;
   }
 
   // restart dialogue after an action has been completed to prevent program restart requirement for further actions
@@ -270,12 +270,13 @@ int main()
   {
     // true = exit; false = continue
     bool exit = getUserAction(filePath);
-    std::cout << std::endl;
 
     // exit program if user has chosen so
     if (exit)
     {
       return 0;
     }
+
+    std::cout << std::endl;
   }
 }
