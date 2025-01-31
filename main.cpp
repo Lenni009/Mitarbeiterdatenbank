@@ -178,8 +178,9 @@ bool getUserAction(std::string filePath)
     std::cout << "Gehalt: ";
     float salary;
     std::cin >> salary;
+    float validatedSalary = std::max(std::abs(salary), float(1));
 
-    unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, salary, 0);
+    unsigned int employeeId = db.addEmployee(name, firstName, limitedPostalCode, validatedSalary, 0);
 
     std::cout << "Nutzer " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
     db.saveFile(filePath);
