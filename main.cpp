@@ -174,6 +174,7 @@ bool getUserAction(std::string filePath)
     std::cin >> postalCode;
     // limiting to 5 digits since German postal codes only have 5 digits (and this is a German program): https://de.wikipedia.org/wiki/Postleitzahl_(Deutschland)
     std::string limitedPostalCode = postalCode.substr(0, 5);
+
     std::cout << "Gehalt: ";
     float salary;
     std::cin >> salary;
