@@ -53,6 +53,9 @@ Zwischenschritt: Betriebszugehörigkeit von Mitarbeiternummer 2 erhöhen
 
 
 Unhappy Path:
+- db.csv hat nicht die erwartete CSV Struktur -> "Datenbankdatei (db.csv) konnte nicht gelesen werden! Existierende Datei wird bei Bearbeitungen überschrieben!"
+  - Datenbank ansehen / Mitarbeiter*in suchen / Programm beenden -> Keine Änderung der Datei
+  - Mitarbeiter*in hinzufügen: Datei wird mit neuen Daten überschrieben
 - float / char / out of range int Eingabe in Menü -> "Ungültige Option"
 - char in PLZ -> nicht validiert, wird in Datenbank geschrieben
 - PLZ zu kurz -> nicht validiert
