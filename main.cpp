@@ -234,7 +234,6 @@ bool getUserAction(std::string filePath)
     std::cout << std::endl;
 
     handleEmployeeSearch(findAction);
-    db->saveFile(filePath);
     break;
   }
 
