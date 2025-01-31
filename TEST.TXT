@@ -24,7 +24,7 @@ Happy Path (gültige Eingaben, erwartetes Nutzerverhalten):
   - Name: Doe
   - PLZ: 45678
   - Gehalt: 100000
--> Nutzer John Doe mit der Mitarbeiternummer 2 erfolgreich hinzugefügt
+-> Mitarbeiter*in John Doe mit der Mitarbeiternummer 2 erfolgreich hinzugefügt
 
 - Mitarbeiter*in bearbeiten:
   - Mitarbeiternummer: 1
@@ -53,6 +53,21 @@ Zwischenschritt: Betriebszugehörigkeit von Mitarbeiternummer 2 erhöhen
 
 
 Unhappy Path:
-- Floating point input in selection menu -> "Ungültige Option"
-- Char input in selection menu -> "Ungültige Option"
-- Out of range employee ID in edit employee menu (-1 / 99999) -> "Ungültige Mitarbeiternummer"
+- float / char / out of range int Eingabe in Menü -> "Ungültige Option"
+- char in PLZ -> nicht validiert, wird in Datenbank geschrieben
+- PLZ zu kurz -> nicht validiert
+- PLZ zu lang -> automatisch auf 5 Stellen gekürzt
+- char als Gehalt -> Gehalt wird 1 -> Kann danach noch geändert werden
+- negatives Gehalt -> Vorzeichen wird ignoriert
+- out of range Mitarbeiternummer in Mitarbeiter*in bearbeiten Menü -> "Ungültige Mitarbeiternummer"
+- Faktor 0 für Gehaltserhöhung -> "Faktor darf nicht 0 oder negativ sein!"
+- negativer Faktor für Gehaltserhöhung -> "Faktor darf nicht 0 oder negativ sein!"
+- char für Gehaltserhöhung -> "Faktor darf nicht 0 oder negativ sein!"
+- Mitarbeitersuche mit Name: keine Möglichkeit für falsche Eingaben gefunden
+- Mitarbeitersuche mit Jahren der Betriebszugehörigkeit:
+  - char Eingabe -> 0-jähriges Jubiläum wird angezeigt
+  - float Eingabe -> wird zu int gekürzt
+  - negative Zahl: Vorzeichen wird ignoriert
+
+Bekannte Fehler:
+- bei ungültigen Eingaben wird das Menü nochmal mit dem Fehler "Ungültige Option" angezeigt, bevor man eine neue Option wählen kann
