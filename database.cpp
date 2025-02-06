@@ -1,10 +1,10 @@
 #include <string>
 #include <iostream>
-#include <fstream>
-#include <sstream>
-#include <algorithm>
+#include <fstream>   // for ifstream
+#include <sstream>   // for stringstream
+#include <algorithm> // for find_if
 #include <vector>
-#include <memory>
+#include <memory> // for unique_ptr
 #include "database.hpp"
 #include "employee.hpp"
 
@@ -42,33 +42,30 @@ void Database::saveFile(std::string path)
   for (Employee &employee : db)
   {
     outputText += employee.getEmployeeData();
-    outputText += "\n\n"; // adding empty line between entries
+    outputText += "\n\n"; // adding empty line between entries (task requirement)
   }
 
   // https://www.w3schools.com/cpp/cpp_files.asp
-  // create and open a text file
+  // open text file (create it if it doesn't exist yet)
   std::ofstream dbFile(path);
 
   // write to the file
   dbFile << outputText;
 
-  // close the file
   dbFile.close();
 }
 
 // employee add/remove
 // the task dictates the following: `int mitarbeiternummer = datenbank.neuerMitarbeiter ( name , vorname , plz , gehalt );`
-// this seems to be an error, since by that definition, the yearsOfEmployment are not stored in the DB, and would always be set to 0 for everyone on program start.
-// this goes against the following statements in the task:
-// "Jeder Mitarbeiter wird durch folgende Einträge beschrieben: Name, Vorname, Postleitzahl, Gehalt, Jahre der Betriebszugehörigkeit."
-// "Die Werte stehen in einer Datei, sodass jede Zeile genau einen der Einträge in der genannten Reihenfolge enthält."
-// therefore this method takes the yearsOfEmployment, despite what the task requires.
+// due to the architecture of the program, this method is also used during initial DB creation from file.
+// therefore this method also takes the yearsOfEmployment, despite what the task requires.
+// I wouldn't return anything from this function, but the task requires this to return the employee id.
 
 unsigned int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment)
 {
   unsigned int employeeId = getNewEmployeeId();
 
-  // using unique_ptr to automatically allocate/deallocate memory when object is created/goes out of scope
+  // using unique_ptr to automatically allocate/free memory when object is created/goes out of scope
   std::unique_ptr<Employee> employee = std::make_unique<Employee>(employeeId, name, firstName, postalCode, salary, yearsOfEmployment);
 
   db.push_back(*employee);
@@ -85,6 +82,10 @@ void Database::removeEmployee(unsigned int employeeId)
     db.erase(db.begin() + employeeIndex);
   }
 }
+
+// Since a function in C++ can only have one return type (as far as I know), I cannot declare a method that *might* return an employee, or might return void.
+// I am aware of function overloading, but in this case we do not know the return type based on the function args.
+// So the alternative is to return an int and then check whether that int has an expected value.
 
 int Database::getEmployeeIndexById(unsigned int employeeId)
 {
@@ -159,7 +160,7 @@ void Database::viewDB()
   }
 }
 
-// This is just a fancy wrapper around the employee's class own method, but it is required by the task that this method exists on the DB.
+// This is just a fancy wrapper around the employee class' own method, but it is required by the task that this method exists on the DB.
 // I would just use these methods on the employee objects directly, but the task requires this to be on the db object
 
 void Database::adjustSalary(unsigned int employeeId, float factor)
@@ -173,13 +174,12 @@ void Database::adjustSalary(unsigned int employeeId, float factor)
   }
 }
 
-// The task requires that this method be on the DB object as well
+// The task requires this method to be on the DB object as well
 
 void Database::increaseYearsOfEmployment(unsigned int employeeId)
 {
-  // the code here is pretty much similar to the above method, but I'm lacking the knowledge to make this generic.
-  // since a function in C++ can only have one return type (as far as I know), I cannot declare a method that *might* return an employee, or might return void.
-  // so the alternative is to return an int and then check whether that int has an expected value.
+  // The code here is pretty much similar to the above method, but I'm lacking the knowledge to make this generic.
+  // I would need to add a callback function as a method parameter which would then be executed in the `if` statement
   int employeeIndex = getEmployeeIndexById(employeeId);
   // -1 = invalid index -> ID doesn't exist
   if (employeeIndex != -1)

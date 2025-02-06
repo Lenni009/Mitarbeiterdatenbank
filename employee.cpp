@@ -12,7 +12,7 @@ Employee::Employee(unsigned int employeeId, std::string name, std::string firstN
   this->yearsOfEmployment = yearsOfEmployment;
 }
 
-// getters. They need to be commented as per the task description.
+// getters
 
 unsigned int Employee::getYearsOfEmployment()
 {
@@ -59,7 +59,7 @@ void Employee::outputDataToConsole()
   std::cout << "Jahre der Betriebszugehörigkeit: " << yearsOfEmployment << std::endl;
 }
 
-// setters. These also need to be commented as per the task description.
+// setters
 
 void Employee::adjustSalary(float factor)
 {

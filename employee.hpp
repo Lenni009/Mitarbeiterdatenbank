@@ -52,9 +52,9 @@ public:
   // mutate data
 
   /// @brief Adjust the employee's salary
-  /// @param factor Factor by which the employee's salary should be adjusted. Must be >= 0.
+  /// @param factor Factor by which the employee's salary should be adjusted. Must be > 0.
   void adjustSalary(float factor); // no huge precision needed -> using float instead of double
 
   /// @brief Increases the years of employment of the employee by 1
-  void increaseYearsOfEmployment(); // +1 year
+  void increaseYearsOfEmployment();
 };

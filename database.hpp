@@ -34,7 +34,7 @@ public:
   /// @param salary The employee's salary
   /// @param yearsOfEmployment How long the employee has been employed at the company
   /// @return The employee's unique ID to identify them in the DB during runtime
-  unsigned int addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment); // I wouldn't return anything from this function, but the task requires this to return the employee id
+  unsigned int addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment);
 
   /// @brief Removes an employee with a given ID from the DB
   /// @param employeeId ID of the employee to be removed
@@ -44,7 +44,7 @@ public:
 
   /// @brief Gets the index of an employee object with a specific ID
   /// @param employeeId The ID to be searched for in the DB
-  /// @return The index where the wanted employee object is in the vector
+  /// @return The index where the wanted employee object is in the vector. Returns -1 if not found.
   int getEmployeeIndexById(unsigned int employeeId);
 
   /// @brief Get a reference to the employee object at a specific index in the DB vector
@@ -76,7 +76,7 @@ public:
 
   /// @brief Adjust (increase/decrease) the salary of an employee with a given employee ID by a given factor.
   /// @param employeeId ID of the employee whose salary should be increased
-  /// @param factor Factor by which the salary should be increased. Must be >= 0.
+  /// @param factor Factor by which the salary should be increased. Must be > 0.
   void adjustSalary(unsigned int employeeId, float factor);
 
   /// @brief Increase the years of employment for an employee with a given employee ID

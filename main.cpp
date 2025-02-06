@@ -1,12 +1,10 @@
 #include <iostream>
-#include <algorithm>
-#include <limits>
-#include <memory>
+#include <limits> // for numeric_limits
+#include <memory> // for unique_ptr
 // include cpp files so they are automatically included in the final bundle
 #include "employee.cpp"
 #include "database.cpp"
 
-// instantiate DB class
 std::unique_ptr<Database> db = std::make_unique<Database>();
 
 /// @brief Shows an error about the given option being invalid and handles the console's error state to prevent infinite loops
@@ -14,12 +12,11 @@ void showInvalidOptionError()
 {
   std::cerr << "Ungültige Option" << std::endl;
 
-  // the following is to prevent an infinite loop on invalid input
+  // prevent an infinite loop on invalid input
   // clear error flags
   std::cin.clear();
 
-  // ignore the rest of the line (discard the bad input)
-  // use std::numeric_limits<std::streamsize>::max() to ensure everything until a newline is ignored
+  // ignore everything until a newline
   std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 }
 
@@ -83,7 +80,7 @@ void handleEmployeeEdit(unsigned int employeeId, unsigned int editAction)
 }
 
 /// @brief Handles the search options UI
-/// @param findAction number of the action to be executed. Expected to be 1 or 2.
+/// @param findAction Number of the action to be executed. Expected to be 1 or 2.
 void handleEmployeeSearch(unsigned int findAction)
 {
   switch (findAction)
