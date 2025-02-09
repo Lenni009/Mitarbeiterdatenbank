@@ -1,1 +1,1 @@
-g++ -Wall -o mitarbeiter main.cpp
+g++ -Wall -std=c++17 -o mitarbeiter main.cpp
