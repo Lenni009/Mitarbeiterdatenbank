@@ -7,18 +7,24 @@
 
 static std::unique_ptr<Database> db = std::make_unique<Database>();
 
+/// @brief Prevents an infinite loop on invalid input
+void resetCin();
+void resetCin()
+{
+  // clear error flags
+  std::cin.clear();
+
+  // ignore everything until a newline
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
+
 /// @brief Shows an error about the given option being invalid and handles the console's error state to prevent infinite loops
 void showInvalidOptionError();
 void showInvalidOptionError()
 {
   std::cerr << "Ungültige Option" << std::endl;
 
-  // prevent an infinite loop on invalid input
-  // clear error flags
-  std::cin.clear();
-
-  // ignore everything until a newline
-  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  resetCin();
 }
 
 /// @brief Handles the UI for editing an employee
@@ -36,9 +42,10 @@ void handleEmployeeEdit(int employeeId, int editAction)
     float factor;
     std::cin >> factor;
 
-    if (factor <= 0)
+    if (factor <= 0 || std::cin.fail())
     {
       std::cerr << "Faktor darf nicht 0 oder negativ sein!" << std::endl;
+      resetCin();
       break;
     }
 
@@ -184,6 +191,13 @@ bool getUserAction(std::string filePath)
     std::cin >> salary;
     float validatedSalary = std::max(std::abs(salary), float(1));
 
+    if (std::cin.fail())
+    {
+      std::cerr << "Gehalt muss Zahl sein! Vorgang wird abgebrochen." << std::endl;
+      resetCin();
+      break;
+    }
+
     int employeeId = db->addEmployee(name, firstName, limitedPostalCode, validatedSalary, 0);
 
     std::cout << "Mitarbeiter*in " << firstName << " " << name << " mit der Mitarbeiternummer " << employeeId << " erfolgreich hinzugefügt" << std::endl;
@@ -252,7 +266,7 @@ bool getUserAction(std::string filePath)
 
 int main()
 {
-  const std::string filePath = "db->csv";
+  const std::string filePath = "db.csv";
 
   // read file
   try
@@ -261,7 +275,7 @@ int main()
   }
   catch (const std::exception &)
   {
-    std::cerr << "Datenbankdatei (db->csv) konnte nicht gelesen werden!" << "\n"
+    std::cerr << "Datenbankdatei (db.csv) konnte nicht gelesen werden!" << "\n"
               << "Existierende Datei wird bei Bearbeitungen überschrieben!" << std::endl;
   }
 
