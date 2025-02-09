@@ -30,7 +30,7 @@ void Database::readFile(std::string path)
     }
 
     float salary = std::stof(args.at(3));
-    unsigned int yearsOfEmployment = std::stoi(args.at(4));
+    int yearsOfEmployment = std::stoi(args.at(4));
     addEmployee(args.at(0), args.at(1), args.at(2), salary, yearsOfEmployment);
   }
 }
@@ -61,9 +61,9 @@ void Database::saveFile(std::string path)
 // therefore this method also takes the yearsOfEmployment, despite what the task requires.
 // I wouldn't return anything from this function, but the task requires this to return the employee id.
 
-unsigned int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment)
+int Database::addEmployee(std::string name, std::string firstName, std::string postalCode, float salary, int yearsOfEmployment)
 {
-  unsigned int employeeId = getNewEmployeeId();
+  int employeeId = getNewEmployeeId();
 
   // using unique_ptr to automatically allocate/free memory when object is created/goes out of scope
   std::unique_ptr<Employee> employee = std::make_unique<Employee>(employeeId, name, firstName, postalCode, salary, yearsOfEmployment);
@@ -72,7 +72,7 @@ unsigned int Database::addEmployee(std::string name, std::string firstName, std:
   return employeeId;
 }
 
-void Database::removeEmployee(unsigned int employeeId)
+void Database::removeEmployee(int employeeId)
 {
   const int employeeIndex = getEmployeeIndexById(employeeId);
 
@@ -87,7 +87,7 @@ void Database::removeEmployee(unsigned int employeeId)
 // I am aware of function overloading, but in this case we do not know the return type based on the function args.
 // So the alternative is to return an int and then check whether that int has an expected value.
 
-int Database::getEmployeeIndexById(unsigned int employeeId)
+int Database::getEmployeeIndexById(int employeeId)
 {
   // find element where Employee.employeeId == employeeId
   // returns an iterator
@@ -95,7 +95,8 @@ int Database::getEmployeeIndexById(unsigned int employeeId)
                                { return employee.getEmployeeId() == employeeId; });
   if (it != db.end())
   {
-    return it - db.begin();
+    long index = it - db.begin();
+    return static_cast<int>(index);
   }
   else
   {
@@ -104,12 +105,13 @@ int Database::getEmployeeIndexById(unsigned int employeeId)
   }
 }
 
-Employee &Database::getEmployeeByIndex(unsigned int index)
+Employee &Database::getEmployeeByIndex(int index)
 {
-  return db.at(index);
+  size_t indexAsSizeT = static_cast<size_t>(index); // this is here because otherwise the compiler gives a warning
+  return db.at(indexAsSizeT);
 }
 
-unsigned int Database::getNewEmployeeId()
+int Database::getNewEmployeeId()
 {
   if (db.size())
   {
@@ -122,9 +124,9 @@ unsigned int Database::getNewEmployeeId()
   }
 }
 
-std::vector<unsigned int> Database::findEmployeesByName(std::string name, std::string firstName)
+std::vector<int> Database::findEmployeesByName(std::string name, std::string firstName)
 {
-  std::vector<unsigned int> filterResults;
+  std::vector<int> filterResults;
   for (Employee &employee : db)
   {
     if (employee.getEmployeeName() == name && employee.getEmployeeFirstName() == firstName)
@@ -135,9 +137,9 @@ std::vector<unsigned int> Database::findEmployeesByName(std::string name, std::s
   return filterResults;
 }
 
-std::vector<unsigned int> Database::findEmployeesByYearsOfEmployment(unsigned int yearsOfEmployment)
+std::vector<int> Database::findEmployeesByYearsOfEmployment(int yearsOfEmployment)
 {
-  std::vector<unsigned int> filterResults;
+  std::vector<int> filterResults;
   for (Employee &employee : db)
   {
     if (employee.getYearsOfEmployment() == yearsOfEmployment)
@@ -163,20 +165,21 @@ void Database::viewDB()
 // This is just a fancy wrapper around the employee class' own method, but it is required by the task that this method exists on the DB.
 // I would just use these methods on the employee objects directly, but the task requires this to be on the db object
 
-void Database::adjustSalary(unsigned int employeeId, float factor)
+void Database::adjustSalary(int employeeId, float factor)
 {
   int employeeIndex = getEmployeeIndexById(employeeId);
   // -1 = invalid index -> ID doesn't exist
   if (employeeIndex != -1)
   {
-    Employee &employee = getEmployeeByIndex(employeeIndex);
+    int employeeIndexInteger = static_cast<int>(employeeIndex);
+    Employee &employee = getEmployeeByIndex(employeeIndexInteger);
     employee.adjustSalary(factor);
   }
 }
 
 // The task requires this method to be on the DB object as well
 
-void Database::increaseYearsOfEmployment(unsigned int employeeId)
+void Database::increaseYearsOfEmployment(int employeeId)
 {
   // The code here is pretty much similar to the above method, but I'm lacking the knowledge to make this generic.
   // I would need to add a callback function as a method parameter which would then be executed in the `if` statement
@@ -184,14 +187,15 @@ void Database::increaseYearsOfEmployment(unsigned int employeeId)
   // -1 = invalid index -> ID doesn't exist
   if (employeeIndex != -1)
   {
-    Employee &employee = getEmployeeByIndex(employeeIndex);
+    int employeeIndexInteger = static_cast<int>(employeeIndex);
+    Employee &employee = getEmployeeByIndex(employeeIndexInteger);
     employee.increaseYearsOfEmployment();
   }
 }
 
 // input validation
 
-bool Database::isEmployeeIdValid(unsigned int employeeId)
+bool Database::isEmployeeIdValid(int employeeId)
 {
   return getEmployeeIndexById(employeeId) != -1;
 }

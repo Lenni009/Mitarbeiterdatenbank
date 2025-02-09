@@ -6,12 +6,12 @@
 class Employee
 {
 private:
-  unsigned int employeeId;
-  std::string name;
-  std::string firstName;
-  std::string postalCode; // 01234 -> using string to preserve leading 0 (would be stripped when using int)
-  float salary;           // no huge decimal needed, saving memory by using float instead of double
-  unsigned int yearsOfEmployment;
+  std::string name_;
+  std::string firstName_;
+  std::string postalCode_; // 01234 -> using string to preserve leading 0 (would be stripped when using int)
+  int employeeId_;
+  int yearsOfEmployment_;
+  float salary_; // no huge decimal needed, saving memory by using float instead of double
 
 public:
   /// @brief Constructor for an employee object, holding the employee's data
@@ -21,14 +21,14 @@ public:
   /// @param postalCode Postal code of where the employee lives
   /// @param salary Salary of the employee
   /// @param yearsOfEmployment How long the employee has been employed at the company
-  Employee(unsigned int employeeId, std::string name, std::string firstName, std::string postalCode, float salary, unsigned int yearsOfEmployment);
+  Employee(int employeeId, std::string name, std::string firstName, std::string postalCode, float salary, int yearsOfEmployment);
 
   // getters
   // individual attributes
 
   /// @brief Get the unique ID of the employee
   /// @return Unique ID of the employee
-  unsigned int getEmployeeId();
+  int getEmployeeId();
 
   /// @brief Get Surname of the employee
   /// @return Surname of the employee
@@ -40,7 +40,7 @@ public:
 
   /// @brief Get the years of employment for the employee
   /// @return Years of employment of the employee
-  unsigned int getYearsOfEmployment();
+  int getYearsOfEmployment();
 
   /// @brief Get the employee's data in one delimiter separated string for use in the csv DB file
   /// @return The employee's data in one delimiter separated string
