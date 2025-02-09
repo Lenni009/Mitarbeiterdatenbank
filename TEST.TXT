@@ -57,13 +57,14 @@ Unhappy Path:
   - Datenbank ansehen / Mitarbeiter*in suchen / Programm beenden -> Keine Änderung der Datei
   - Mitarbeiter*in hinzufügen: Datei wird mit neuen Daten überschrieben
 - float / char / out of range int Eingabe in Menü -> "Ungültige Option"
-- char in PLZ -> nicht validiert, wird in Datenbank geschrieben
-- PLZ zu kurz -> nicht validiert
+- char in PLZ / negative Zahl -> nicht validiert, wird in Datenbank geschrieben (garbage in, garbage out)
+- PLZ zu kurz -> ebenfalls nicht validiert
 - PLZ zu lang -> automatisch auf 5 Stellen gekürzt
-- char als Gehalt -> Gehalt wird 1 -> Kann danach noch geändert werden
 - negatives Gehalt -> Vorzeichen wird ignoriert
+- char als Gehalt -> "Gehalt muss Zahl sein! Vorgang wird abgebrochen."
 - out of range Mitarbeiternummer in Mitarbeiter*in bearbeiten Menü -> "Ungültige Mitarbeiternummer"
 - Faktor 0 für Gehaltserhöhung -> "Faktor darf nicht 0 oder negativ sein!"
+- Char als Faktor für Gehaltserhöhung -> "Faktor darf nicht 0 oder negativ sein!"
 - negativer Faktor für Gehaltserhöhung -> "Faktor darf nicht 0 oder negativ sein!"
 - char für Gehaltserhöhung -> "Faktor darf nicht 0 oder negativ sein!"
 - Mitarbeitersuche mit Name: keine Möglichkeit für falsche Eingaben gefunden
@@ -73,4 +74,4 @@ Unhappy Path:
   - negative Zahl: Vorzeichen wird ignoriert
 
 Bekannte Fehler:
-- bei ungültigen Eingaben wird das Menü nochmal mit dem Fehler "Ungültige Option" angezeigt, bevor man eine neue Option wählen kann
+- bei ungültigen Eingaben wird manchmal das Menü nochmal mit dem Fehler "Ungültige Option" angezeigt, bevor man eine neue Option wählen kann
