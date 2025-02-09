@@ -1,1 +1,1 @@
-g++ -Wall -std=c++17 -o mitarbeiter main.cpp
+g++ -Wall -Wextra -pedantic -std=c++17 -o mitarbeiter main.cpp
