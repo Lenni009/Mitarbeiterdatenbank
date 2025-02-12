@@ -171,8 +171,7 @@ void Database::adjustSalary(int employeeId, float factor)
   // -1 = invalid index -> ID doesn't exist
   if (employeeIndex != -1)
   {
-    int employeeIndexInteger = static_cast<int>(employeeIndex);
-    Employee &employee = getEmployeeByIndex(employeeIndexInteger);
+    Employee &employee = getEmployeeByIndex(employeeIndex);
     employee.adjustSalary(factor);
   }
 }
@@ -187,8 +186,7 @@ void Database::increaseYearsOfEmployment(int employeeId)
   // -1 = invalid index -> ID doesn't exist
   if (employeeIndex != -1)
   {
-    int employeeIndexInteger = static_cast<int>(employeeIndex);
-    Employee &employee = getEmployeeByIndex(employeeIndexInteger);
+    Employee &employee = getEmployeeByIndex(employeeIndex);
     employee.increaseYearsOfEmployment();
   }
 }
